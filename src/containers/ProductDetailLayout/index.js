@@ -51,7 +51,7 @@ function ProductDetailLayout() {
       {!loading && error && <p>Error</p>}
 
       {/* {!loading && !error && <ProductCard product={product} />} */}
-      {!loading && !error && <ProductDetailCard />}
+      {!loading && !error && <ProductDetailCard product={product} />}
     </Box>
   );
 }

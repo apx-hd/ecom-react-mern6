@@ -4,25 +4,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
+import { useFetch } from "../../hooks";
 
 function HomeLayout() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get("http://localhost:4001/api/products");
-        console.log(data);
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        setError(true);
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const { data: products, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products`);
 
   return (
     <Box
@@ -46,6 +31,7 @@ function HomeLayout() {
 
       {!loading &&
         !error &&
+        products &&
         products.map((product, index) => {
           return <ProductCard product={product} key={index} />;
         })}

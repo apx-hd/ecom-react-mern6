@@ -6,29 +6,11 @@ import ProductCard from "../../components/ProductCard";
 import { Box } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 import ProductDetailCard from "../../components/ProductDetailCard";
+import { useFetch } from "../../hooks";
 
 function ProductDetailLayout() {
   const { productID } = useParams();
-
-  const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:4001/api/products/${productID}`
-        );
-        console.log(data);
-        setProduct(data);
-        setLoading(false);
-      } catch (error) {
-        setError(true);
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const { data: product, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products/${productID}`);
 
   return (
     <Box
@@ -51,7 +33,7 @@ function ProductDetailLayout() {
       {!loading && error && <p>Error</p>}
 
       {/* {!loading && !error && <ProductCard product={product} />} */}
-      {!loading && !error && <ProductDetailCard product={product} />}
+      {!loading && !error && product && <ProductDetailCard product={product} />}
     </Box>
   );
 }

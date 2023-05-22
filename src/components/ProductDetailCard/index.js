@@ -56,11 +56,10 @@ IconContainer.propTypes = {
 
 function ProductDetailCard(props) {
 
-
   return (
     <Box display="flex" alignItems="center" justifyContent="center" mt={10}>
       <img
-        src={props.product.image}
+        src={props.product?.image}
         width="400px"
         style={{ borderRadius: 8 }}
       />
@@ -79,7 +78,7 @@ function ProductDetailCard(props) {
           >
             <Rating
               name="half-rating-read"
-              defaultValue={props.product.rating.rate}
+              defaultValue={props.product.rating?.rate}
               precision={0.5}
               size="large"
               readOnly

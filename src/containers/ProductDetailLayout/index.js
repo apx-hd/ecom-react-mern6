@@ -7,10 +7,22 @@ import { Box } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 import ProductDetailCard from "../../components/ProductDetailCard";
 import { useFetch } from "../../hooks";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchSingleProduct } from "../../store/slices/productSlice";
 
 function ProductDetailLayout() {
   const { productID } = useParams();
-  const { data: product, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products/${productID}`);
+
+  // const { data: product, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products/${productID}`);
+  //Redux Approach
+  const dispatch = useDispatch();
+  const { product, loading, error } = useSelector(state => state.product)
+  
+  useEffect(() => {
+    if (productID) {
+      dispatch(fetchSingleProduct({ productID }))
+    }
+  }, [productID])
 
   return (
     <Box

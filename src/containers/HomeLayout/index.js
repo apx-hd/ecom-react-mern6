@@ -5,9 +5,19 @@ import axios from "axios";
 import { Box } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 import { useFetch } from "../../hooks";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllProducts } from "../../store/slices/productSlice";
 
 function HomeLayout() {
-  const { data: products, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products`);
+  // const { data: products, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products`);
+
+  //Redux Approach
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector(state => state.product)
+  
+  useEffect(() => {
+    dispatch(fetchAllProducts());
+  }, [])
 
   return (
     <Box

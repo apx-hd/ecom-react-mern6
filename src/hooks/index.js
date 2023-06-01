@@ -20,7 +20,7 @@ function useFetch(url) {
     })();
   }, []);
 
-  return { data, loading, error };
+  return { data, setData, loading, error };
 }
 
 export { useFetch };

@@ -8,16 +8,22 @@ import { useFetch } from "../../hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllProducts } from "../../store/slices/productSlice";
 
+import { useContext } from "react";
+import { ProductContext } from "../../context/ProductContext";
+
 function HomeLayout() {
   // const { data: products, loading, error } = useFetch(`${process.env.REACT_APP_API_BASE_URL}/api/products`);
 
+  //Context Approach
+  const { products, loading, error } = useContext(ProductContext);
+
   //Redux Approach
-  const dispatch = useDispatch();
-  const { products, loading, error } = useSelector(state => state.product)
+  // const dispatch = useDispatch();
+  // const { products, loading, error } = useSelector(state => state.product)
   
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchAllProducts());
+  // }, [])
 
   return (
     <Box
